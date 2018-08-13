@@ -1,0 +1,8 @@
+.fullpage {
+    background: #aaa;
+    height: 100vh;
+}
+
+.fullpage col-4 {
+    margin: center;
+}
