@@ -1,5 +1,6 @@
 <?php 
 include "Database.php";
+include "restrict.php";
 $conn = new Database();
 
 if(isset($_GET['deleteid'])){
@@ -38,7 +39,9 @@ $result = $conn->get_all_users();
         <div class="row">
             <div class="col-md-12">
             <h2>List of Users</h2>
-            <a href="add_user.php" class="btn btn-warning btn-sm">Add New User</a>
+            <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                <a href="add_user.php" class="btn btn-warning btn-sm">Add New User</a>
+            <?php } ?>
             <hr>
             <table class="table table-dondensed table-bordered table-hover">
                 <thead>
@@ -48,7 +51,9 @@ $result = $conn->get_all_users();
                         <th>Username</th>
                         <th>Email</th>
                         <th>Date Registered</th>
-                        <th>ACTION</th>
+                        <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                            <th>ACTION</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,10 +66,12 @@ $result = $conn->get_all_users();
                                 <td><?php echo $row['user_username']; ?></td>
                                 <td><?php echo $row['user_email']; ?></td>
                                 <td><?php echo date('h:i:s a - l - d M Y', strtotime($row['user_date_registered'])); ?></td>
-                                <td>
-                                    <a href="update_user.php?editid=<?php echo $row['user_id']; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a onclick="return confirm('Delete?')" href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteid=<?php echo $row['user_id']; ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                </td>
+                                <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                                    <td>
+                                        <a href="update_user.php?editid=<?php echo $row['user_id']; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                        <a onclick="return confirm('Delete?')" href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteid=<?php echo $row['user_id']; ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                     </tr>

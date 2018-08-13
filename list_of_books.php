@@ -1,5 +1,6 @@
 <?php 
 include "Database.php";
+include "restrict.php";
 $conn = new Database();
 
 if(isset($_GET['deleteid'])){
@@ -10,6 +11,7 @@ if(isset($_GET['deleteid'])){
 }
 
 $result = $conn->get_all_books();
+
 
 // print_r($result);
 
@@ -38,7 +40,9 @@ $result = $conn->get_all_books();
         <div class="row">
             <div class="col-md-12">
             <h2>List of Books</h2>
-            <a href="add_book.php" class="btn btn-warning btn-sm">Add New Book</a>
+            <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                <a href="add_book.php" class="btn btn-warning btn-sm">Add New Book</a>
+            <?php } ?>
             <hr>
             <table class="table table-dondensed table-bordered table-hover">
                 <thead>
@@ -50,7 +54,9 @@ $result = $conn->get_all_books();
                         <th>Category</th>
                         <th>Stocks</th>
                         <th>Date Added</th>
-                        <th>ACTION</th>
+                        <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                            <th>ACTION</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,10 +71,12 @@ $result = $conn->get_all_books();
                                 <td><?php echo $row['category']; ?></td>
                                 <td><?php echo $row['book_stocks']; ?></td>
                                 <td><?php echo date('h:i:s a - l - d M Y', strtotime($row['book_dated_added'])); ?></td>
-                                <td>
-                                    <a href="update_book.php?editid=<?php echo $row['book_id']; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    <a onclick="return confirm('Delete?')" href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteid=<?php echo $row['book_id']; ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
-                                </td>
+                                <?php if($_SESSION['ses_level_id'] == 1){ ?>
+                                    <td>
+                                        <a href="update_book.php?editid=<?php echo $row['book_id']; ?>" class="btn btn-success"><i class="glyphicon glyphicon-pencil"></i></a>
+                                        <a onclick="return confirm('Delete?')" href="<?php echo $_SERVER['PHP_SELF']; ?>?deleteid=<?php echo $row['book_id']; ?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                                    </td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                     </tr>
@@ -92,3 +100,8 @@ $result = $conn->get_all_books();
     <script src="main.js"></script>
   </body>
 </html>
+
+
+<?php if($_SESSION['ses_level_id'] == 1){ ?>
+                <a href="add_book.php" class="btn btn-warning btn-sm">Add New Book</a>
+            <?php } ?>

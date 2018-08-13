@@ -10,7 +10,7 @@
           <li><a href="list_of_users.php">List of users</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href=""><strong>User 123</strong></a></li>
+          <li><a href=""><strong><?php echo $_SESSION['ses_username']; ?></strong></a></li>
           <li><a href="index.php">Logout</a></li>
         </ul>
       </div>

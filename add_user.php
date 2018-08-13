@@ -1,5 +1,6 @@
 <?php 
 include "Database.php";
+include "restrict.php";
 $conn = new Database();
 
 if(isset($_POST['btnAddUser'])){

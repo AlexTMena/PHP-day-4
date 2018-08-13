@@ -56,7 +56,7 @@ $conn = new Database();
                         <Label>Username:</Label>
                         <input type="email" name="txtemail" class="form-control" placeholder="Enter email">
                         <Label>Password:</Label>
-                        <input type="password" name="txtpassword" class="form-control" placeholder="Enter email">
+                        <input type="password" name="txtpassword" class="form-control" placeholder="Enter Password">
                         <br>
                         <button type="submit" name="btnLogin" class="btn btn-primary btn-block">Login to my Account</button>
                     </form>
